@@ -12,6 +12,7 @@ int dp[2][N][2], u[N];
 int main()
 {
     cin >> n >> b;
+
     for (int i = 1; i <= n; ++i) {
         cin >> u[i];
     }
