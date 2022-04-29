@@ -1,20 +1,84 @@
-﻿// 1636 Prison rearrangement.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
-
+﻿#include<cstdio>
 #include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
+
+int n, m;
+int anum, bnum;
+int map[210][210], dp[210][210], vis[2][210];
+
+void DFS(int side, int t) {
+	vis[side][t] = 1;
+	if (!side) {
+		anum++;
+		for (int i = 1; i <= n; i++) {
+			if (map[t][i] && !vis[1][i]) {
+				DFS(1, i);
+			}
+		}
+	}
+	else {
+		bnum++;
+		for (int i = 1; i <= n; i++) {
+			if (map[i][t] && !vis[0][i]) {
+				DFS(0, i);
+			}
+		}
+	}
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	int t = 0;
+	cin >> t;
+	while (t--) {
+		memset(map, 0, sizeof(map));
+		memset(dp, 0, sizeof(dp));
+		memset(vis, 0, sizeof(vis));
+		cin>> n >> m;
+		for (int i = 0; i < m; i++) {
+			int x, y;
+			cin>> x >> y;
+			map[x][y] = 1;
+		}
+		int a[210], b[210];
+		int k = 0;
+		for (int i = 1; i <= n; i++) {
+			if (vis[0][i]) continue;
+			anum = 0;
+			bnum = 0;
+			DFS(0, i);
+			a[k] = anum;
+			b[k++] = bnum;
+		}
+		for (int i = 1; i <= n; i++) {
+			if (vis[1][i]) continue;
+			anum = 0;
+			bnum = 0;
+			DFS(1, i);
+			a[k] = anum;
+			b[k++] = bnum;
+		}
+		dp[0][0] = 1;
+		for (int i = 0; i < k; i++) {
+			for (int j = n / 2; j >= a[i]; j--) {
+				for (int l = n / 2; l >= b[i]; l--) {
+					if (dp[j][l] || dp[j - a[i]][l - b[i]] == 1) {
+						dp[j][l] = 1;
+					}
+				}
+			}
+		}
+		for (int i = n / 2; i >= 0; i--) {
+			if (dp[i][i] == 1) {
+				cout << i << endl;
+				break;
+			}
+		}
+	}
+	return 0;
 }
 
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
 
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
