@@ -1,4 +1,11 @@
-﻿#include<cstdio>
+﻿/*题目：POJ 1636
+  思路：典型的DP问题，状态转换方程：dp[k][i][j] = dp[k-1][i-a[k]][j-b[k]] || dp[k-1][i][j]。
+  dp[k][i][j]表示对前K组，用监狱A的i个人和监狱B的j个人交换是否成功。
+  前K组的解与前K-1组有关。当前K-1组解决后，只要加上第K组即可。
+*/
+
+
+#include<cstdio>
 #include <iostream>
 #include <algorithm>
 #include <cstring>

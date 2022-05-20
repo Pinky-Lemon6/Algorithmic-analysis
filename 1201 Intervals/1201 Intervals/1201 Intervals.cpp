@@ -1,4 +1,14 @@
-﻿#include <iostream>
+﻿/*题目：POJ 1201
+  思路：题目所给意思可以用以下不等式条件表示：
+  1、Si >= Si - 1 ，从1 到 i 中选的数必定不会比从1 到 i -1中选的数少。
+  2、Si - Si-1 <= 1 =>> Si-1 >= Si - 1, 相邻之间选的数的个数差不会超过1个数。
+  3、Sb - Sa-1 >= c =>> Sb >= Sa-1 + c, [a,b] 中至少选c个数
+  由于ai，bi从0开始，故使用0作为源点，在建图的时候把a和b都加1，求一遍
+  最长路即可，答案保存在dis[50001]。
+  */
+
+
+#include <iostream>
 #include <cstring>
 #include <algorithm>
 #define N 50010

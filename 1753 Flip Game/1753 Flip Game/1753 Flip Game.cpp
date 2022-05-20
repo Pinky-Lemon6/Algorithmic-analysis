@@ -1,4 +1,10 @@
-﻿#include <stdio.h>
+﻿/*题目：POJ 1753
+  思路：枚举，假如第一行的状态已经确定，则剩下行的翻转方法也可确定了；
+       则只需按照求4个数的子集的方式，枚举第一行的翻转方法就可以枚举
+       出所有的可能*/
+
+
+#include <stdio.h>
 #include <iostream>
 #include <string>
 using namespace  std;

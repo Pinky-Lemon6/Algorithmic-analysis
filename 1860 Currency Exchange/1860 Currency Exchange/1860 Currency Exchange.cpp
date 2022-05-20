@@ -1,13 +1,24 @@
-﻿#include<iostream>
+﻿/*题目：POJ 1860
+  思路：使用Bellman—Ford算法，但是不能在循环一圈之后就与本金比是否
+  增大，因为万一转为本金的佣金很高，但是存在一个一次增加一点点的正环
+  的话就需要循环很多次才可以高于本金。
+*/
+
+
+#include<iostream>
 #include<cstring>
+
 using namespace std;
-const int maxm = 105;// 1<=S<=N<=100, 1<=M<=100, V is real number, 0<=V<=103.
+
+const int maxm = 105;
+
 struct node {
     int ci, cj;//交换点交换的两种货币
-    double cij;//汇率 i->j
+    double cij;//i->j的汇率
     double mij; //手续费
 }state[2 * maxm];
-int n, m;//n为货币种类数，m为站点数
+
+int n, m;
 int type;//Nick手上的货币种类
 double qua;//Nick手上货币的价值
 bool flag;
@@ -31,9 +42,6 @@ bool solve_case(int v0)
         if (!flag)//已经不再进行松弛
             break;
     }
-    //循环一圈之后就与本金比是否增大是不可取的，因为万一转为本金的佣金很高，
-    //但是存在一个一次增加一点点的正环的话就需要循环很多次才可以高于本金。
-    //if(dist[v0]>qua) flag = true;
 
     for (int k = 0; k < 2 * m; k++)
         if (dist[state[k].cj] < (dist[state[k].ci] - state[k].mij) * state[k].cij)

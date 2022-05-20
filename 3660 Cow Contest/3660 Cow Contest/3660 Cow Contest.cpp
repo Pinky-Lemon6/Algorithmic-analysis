@@ -1,4 +1,13 @@
-﻿#include <cstring>
+﻿/*题目：POJ 3660
+  思路：牛相互之间的胜负关系的传递，实际上是一个传递闭包，只需要找出
+  胜于牛a的牛的数目m，和负于牛a的牛的数目k,然后判断m + k == n-1?
+  是否成立即可知道它的名次是否可以确定。若a胜于b，则在建图时添加一条从
+  a->b的有向边，胜于关系转变为可达关系，使用Floyd算法，寻找每一点的可达
+  和被可达的关系数目之和即可。
+*/
+
+
+#include <cstring>
 #include <iostream>
 #include <algorithm>
 #include <map>

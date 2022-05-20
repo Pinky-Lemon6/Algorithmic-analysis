@@ -1,4 +1,12 @@
-﻿#include <cstdio>
+﻿/*题目：POJ 1088
+  思路：要求最长的滑雪坡的长度，即求一个最长的下降序列，
+  并且只能上下左右走，只能走更低的位置，这样的话，
+  搜索每一个点能够下降的最长的长度，可以用递归DFS去搜索，直到搜到边界返回。
+  用一个数组来保存当我们搜索过的值，每当再搜索到这里时，直接用它已经搜索过
+  的值，就可以避免重复搜索
+  */
+
+#include <cstdio>
 #include <iostream>
 
 using namespace std;
@@ -27,7 +35,7 @@ int DFS(int x, int y) {
             max_l[x][y] = max(DFS(a, b) + 1, max_l[x][y]);
         }
     }
-    return max_l[x][y];
+    return max_l[x][y];  //搜索过的点
 }
 int main()
 {
@@ -41,7 +49,7 @@ int main()
     }
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++) {
-            ans = max(ans, DFS(i, j));
+            ans = max(ans, DFS(i, j));  //搜索每一个点，寻找最大值
         }
     }
     cout << ans << endl;

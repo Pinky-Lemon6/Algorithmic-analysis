@@ -1,4 +1,10 @@
-﻿#include <cstdio>
+﻿/*题目：POJ 3233
+  思路：使用二分策略，当k为偶数时，有
+  S＝A^1+A^2+……+A^k＝(A^1+A^2+…+A^(k/2))*(1+A^(k/2))
+  当k为奇数时只需要加上一个A^k即可*/
+
+
+#include <cstdio>
 #include <iostream>
 #include <algorithm>
 
@@ -10,7 +16,7 @@ struct Mat {
 Mat a, res;
 int n, m, k;
 
-Mat Multi(Mat a, Mat b) {
+Mat Multi(Mat a, Mat b) {  //矩阵乘法
     Mat c;
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
@@ -23,7 +29,7 @@ Mat Multi(Mat a, Mat b) {
     return c;
 }
 
-Mat qpow(Mat a, int k) {
+Mat qpow(Mat a, int k) { //矩阵快速幂
     Mat c;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
@@ -33,7 +39,7 @@ Mat qpow(Mat a, int k) {
         if (k & 1) c = Multi(c, a);
     return c;
 }
-void work(int k) {
+void work(int k) {  //二分策略
     if (k == 1) {
         res = a;
         return;
@@ -44,7 +50,7 @@ void work(int k) {
         c.a[i][i]++;
     }
     res = Multi(res, c);
-    if (k % 2 != 0) {
+    if (k % 2 != 0) { //k为奇数时
         Mat d = qpow(a, k);
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {

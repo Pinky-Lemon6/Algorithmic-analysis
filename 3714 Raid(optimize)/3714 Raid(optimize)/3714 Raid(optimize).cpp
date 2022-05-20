@@ -1,4 +1,9 @@
-﻿#include <cstdio>
+﻿/*题目：POJ 3714
+  思路：分治策略，和最近点对问题的思路类似，但是在保存答案时需要判断是否
+  在同一个集合内即可（即不是都为士兵或都为发电站）*/
+
+
+#include <cstdio>
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -28,10 +33,10 @@ double dist(const Point& a, const Point& b) {
 	return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-double slove(int l, int r) {
+double slove(int l, int r) {  //分治策略
 	if (l == r) return INF;
 	if (l + 1 == r) {
-		if (p[l].flag != p[r].flag) return dist(p[l], p[r]);
+		if (p[l].flag != p[r].flag) return dist(p[l], p[r]); //不在同一个集合内
 		return INF;
 	}
 	int mid = (l + r) >> 1;
@@ -44,7 +49,7 @@ double slove(int l, int r) {
 	for(int i=1;i<=temp;i++){
 		for (int j = i+1; j <=temp; j++) {
 			if (q[j].y - q[i].y >= ans) break;
-			if(q[i].flag!=q[j].flag)
+			if(q[i].flag!=q[j].flag) //不在同一集合内
 			ans = min(ans, dist(q[i], q[j]));
 		}
 	}

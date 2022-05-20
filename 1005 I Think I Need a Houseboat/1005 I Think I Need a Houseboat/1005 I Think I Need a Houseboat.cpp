@@ -1,4 +1,10 @@
-﻿#include <iostream>
+﻿/*题目：POJ 1005
+  思路：根据题目要求，满足关系式
+  time = (PI *( pow(x, 2) + pow(y, 2) )/ 100)+1
+  分别对每个输入的点进行判断即可
+  */
+
+#include <iostream>
 #include <math.h>
 using namespace std;
 

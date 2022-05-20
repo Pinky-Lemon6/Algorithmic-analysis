@@ -1,4 +1,8 @@
-﻿#include <iostream>
+﻿/*题目：POJ 2503
+  思路：对输入的字符串按字典序升序排列(qsort)，然后进行二分查找即可*/
+
+
+#include <iostream>
 # include <stdio.h>
 #include<string.h>
 #include<stdlib.h> 
@@ -11,7 +15,7 @@ typedef struct
 Entry entry[MAX];
 int i = 0;		//词典总条数
 
-int cmp(const void* a, const void* b)
+int cmp(const void* a, const void* b) //按字典序比较
 {
 	return strcmp((*(Entry*)a).f, (*(Entry*)b).f);
 }
@@ -19,10 +23,10 @@ int BinSearch(char c[])
 {
 	int low = 0, high = i - 1;
 	int mid, t;
-	while (low <= high)
+	while (low <= high) //二分查找
 	{
 		mid = (low + high) / 2;
-		t = strcmp(entry[mid].f, c);  //字符匹配 和map的find功能一样。 
+		t = strcmp(entry[mid].f, c);  //字符匹配 
 		if (t == 0)
 			return mid;
 		else if (t == -1)  //小了
@@ -44,7 +48,7 @@ int main()
 		sscanf_s(str, "%s%s", entry[i].e, entry[i].f);
 		i++;
 	}
-	qsort(entry, i, sizeof(Entry), cmp);
+	qsort(entry, i, sizeof(Entry), cmp);  //对输入的字典进行快排
 	while (gets_s(str))
 	{
 		index = BinSearch(str);
